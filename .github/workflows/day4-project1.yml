@@ -1,0 +1,39 @@
+name: Day 4 Project 1 - GitHub Actions
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  demo:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show event information
+        run: |
+          echo "Event: ${{ github.event_name }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+
+      - name: Check application file
+        run: |
+          echo "Checking app.py..."
+          test -f app.py
+          echo "app.py exists"
+
+      - name: Run Python application
+        run: |
+          python3 app.py
